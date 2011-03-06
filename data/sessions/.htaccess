@@ -1,0 +1,10 @@
+# LICENSE: http://docs.forwardfour.com/index.php/License
+# 
+# Package: System Core
+# Dependencies: None
+# Known issues: None
+# 
+# Reject public access to the "sessions" directory.
+
+# Deny access to the "sessions" directory.
+deny from all
