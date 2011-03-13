@@ -27,16 +27,16 @@ This script is the super core of the system, which prepares the values from the 
 	defined("ROOT") ? NULL : define("ROOT", PROTOCOL . $config->installDomain);
 	defined("STRIPPED_ROOT") ? NULL : define("STRIPPED_ROOT", $config->installDomain);
 	
-//The order of the files in the "$include" array are important! Do not rearrange the order!
+//Include the rest of the system's core. The order of the files in the "$include" array are important! Do not rearrange the order!
 	$include = array("messages.class.php", "database.class.php");
 	
 	foreach($include as $script) {
-		require_once($config->installRoot . "system/library/" . $script);
+		require_once($config->installRoot . "system/server/" . $script);
 	}
 	
 //Start the session
 	session_save_path($config->installRoot . "data/sessions");
-	session_name("ENSIGMA");
+	session_name("EPOCH_" . $config->sessionSuffix);
 	session_start();
 	
 //Set server configurations
