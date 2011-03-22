@@ -16,7 +16,7 @@ This script is the super core of the system, which prepares the values from the 
  * This is the only script which does not use the "$installRoot" instance variable from the "Config" class to include necessary files from unknown directories.
  * The "$installRoot" instaince variable will be made avaliable to all other other PHP scripts once they have included "index.php".
 */
-	strstr(dirname(__FILE__), "\\") ? $configScript = str_replace("server\library", "", dirname(__FILE__)) . "data\config.php" : $configScript = str_replace("server/library", "", dirname(__FILE__)) . "data/config.php";
+	strstr(dirname(__FILE__), "\\") ? $configScript = str_replace("system\server", "", dirname(__FILE__)) . "data\config.php" : $configScript = str_replace("system/server", "", dirname(__FILE__)) . "data/config.php";
 	require_once($configScript);
 	
 //Instantiate the "Config" class, and use its "$installRoot" instaince variable to import all other core system files.
@@ -31,7 +31,7 @@ This script is the super core of the system, which prepares the values from the 
 	$include = array("messages.class.php", "database.class.php");
 	
 	foreach($include as $script) {
-		require_once($config->installRoot . "server/server/" . $script);
+		require_once($config->installRoot . "system/server/" . $script);
 	}
 	
 //Start the session
