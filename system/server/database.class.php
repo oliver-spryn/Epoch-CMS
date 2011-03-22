@@ -19,26 +19,38 @@ Create a connection to the local database, and provide all of the necessary meth
 		/*
 		 * We will need to access to the contents of the "Message" class, in the case that a connection or query would fail, so create a private "$message" class.
 		 * This constructor method is not using the global "Message" class because this is the only time which stylesheets will not be present in the case of an error.
-		 * All other database-related errors will have a stylesheet present, so they will refer to the global "Message" class.
+		 * All other program-related errors will have a stylesheet present, so they will refer to the global "Message" class.
 		*/
 			$this->message = new Message(true);
 			
-		//Try connecting to the database server
-			$this->connection = mysql_connect($config->dbHost . ":" . $config->dbPort, $config->dbUserName, $config->dbPassword);
-			
-		//Check to see if the connection was successful
-			if (!$this->connection) {
-				$this->message->error("<strong>Fatal error:</strong> The system could not connect to the database server. Please ensure that your credentials are correct, and that the server is not offline.\n<br /><br />\n" . mysql_error());
-				exit;
-			}
-			
-		//Try selecting the database
-			$dbSelect = mysql_select_db($config->dbName, $this->connection);
-			
-		//Check to see if the selection was successful
-			if (!$dbSelect) {
-				$this->message->error("<strong>Fatal error:</strong> The system could not select the database. Please ensure that your database name is correct.\n<br /><br />\n" . mysql_error());
-				exit;
+		//Check to see if the server has the MySQLi extension installed, and use it
+			if (function_exists("mysqli_connect")) {
+			//Try connecting to the database server and selecting the database, using MySQLi
+				$this->connection = new mysqli($config->dbHost, $config->dbUserName, $config->dbPassword, $config->dbName, $config->dbPort);
+				
+			//Check to see if the connection and database selection was successful
+				if ($this->connection->connect_error) {
+					$this->message->error("<strong>Fatal error:</strong> The system could not connect to the database server or the database could not be found. Please ensure that your database login credentials are correct, that the server is not offline, and that your database name is correct.\n<br /><br />\n" . $this->connection->connect_error);
+					exit;
+				}
+			} else {
+			//Try connecting to the database server, using the MySQL connection
+				$this->connection = mysql_connect($config->dbHost . ":" . $config->dbPort, $config->dbUserName, $config->dbPassword);
+				
+			//Check to see if the connection was successful
+				if (!$this->connection) {
+					$this->message->error("<strong>Fatal error:</strong> The system could not connect to the database server. Please ensure that your database login credentials are correct, and that the server is not offline.\n<br /><br />\n" . mysql_error());
+					exit;
+				}
+				
+			//Try selecting the database
+				$dbSelect = mysql_select_db($config->dbName, $this->connection);
+				
+			//Check to see if the selection was successful
+				if (!$dbSelect) {
+					$this->message->error("<strong>Fatal error:</strong> The system could not select the database. Please ensure that your database name is correct.\n<br /><br />\n" . mysql_error());
+					exit;
+				}
 			}
 		}
 		
