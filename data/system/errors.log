@@ -1,0 +1,16 @@
+=========================================
+LICENSE: http://docs.forwardfour.com/index.php/License
+
+Package: System Core
+Dependencies: logger.class.php
+Known issues: None
+
+This log file is created during the automated setup process, and is maintained by "logger.class.php". This log contains information about the server, as well details on system errors.
+=========================================
+
+----------------------------------------------------------------------------------
+Server IP Address: 24.101.80.133
+Epoch Version: 0.1a
+File Created: Tuesday, March 22nd, 2011 at 4:01 PM
+----------------------------------------------------------------------------------
+
