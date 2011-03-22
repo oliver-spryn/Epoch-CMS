@@ -30,5 +30,6 @@ This script is created during the automated setup process, and contains the core
 		public $folderPermissions = "0777";
 		public $encryptedSalt = "%(*&NSJ(&jd&81245";
 		public $sessionSuffix = "HJF789HF6";
+		public $debugMode = false;
 	}
 ?>
