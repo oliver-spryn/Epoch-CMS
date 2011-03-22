@@ -4,10 +4,16 @@
 # Dependencies: None
 # Known issues: None
 # 
-# Reject public access to the core configuration file.
+# Reject public access to the core configuration and log files.
 
-# Deny access to the configuration file.
+# Deny access to the configuration file
 <FILES config.php>
+  order deny,allow
+  deny from all
+</FILES>
+
+# Deny access to the error log
+<FILES errors.log>
   order deny,allow
   deny from all
 </FILES>
