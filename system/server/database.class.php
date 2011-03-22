@@ -14,6 +14,7 @@ Create a connection to the local database, and provide all of the necessary meth
 		private $connection;
 		
 		function __construct() {
+		//The "$config" class was instantiated in "index.php"
 			global $config;
 			
 		/*
@@ -23,8 +24,8 @@ Create a connection to the local database, and provide all of the necessary meth
 		*/
 			$this->message = new Message(true);
 			
-		//Check to see if the server has the MySQLi extension installed, and use it
-			if (function_exists("mysqli_connect")) {
+		//Check to see if the server has the MySQLi extension installed, and use it if the configuration is set to do so
+			if ($config->dbType == strtolower("mysqli") && class_exists("mysqli")) {
 			//Try connecting to the database server and selecting the database, using MySQLi
 				$this->connection = new mysqli($config->dbHost, $config->dbUserName, $config->dbPassword, $config->dbName, $config->dbPort);
 				
@@ -33,6 +34,7 @@ Create a connection to the local database, and provide all of the necessary meth
 					$this->message->error("<strong>Fatal error:</strong> The system could not connect to the database server or the database could not be found. Please ensure that your database login credentials are correct, that the server is not offline, and that your database name is correct.\n<br /><br />\n" . $this->connection->connect_error);
 					exit;
 				}
+		//Fall back to the standard MySQL connection methods
 			} else {
 			//Try connecting to the database server, using the MySQL connection
 				$this->connection = mysql_connect($config->dbHost . ":" . $config->dbPort, $config->dbUserName, $config->dbPassword);
@@ -54,8 +56,8 @@ Create a connection to the local database, and provide all of the necessary meth
 			}
 		}
 		
-	//Clean-up escaped database values which will were recently pulled database prior to displaying.
-		public function prepare($input, $htmlEncode = false, $stripSlashes = true) {
+	//Clean-up stored database values
+		public function prepare(string $input, boolean $htmlEncode = NULL, boolean $stripSlashes = NULL) {
 			global $message;
 			
 			if ($stripSlashes == true) {
