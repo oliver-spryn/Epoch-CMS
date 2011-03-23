@@ -28,7 +28,7 @@ This script is the super core of the system, which prepares the values from the 
 	defined("STRIPPED_ROOT") ? NULL : define("STRIPPED_ROOT", $config->installDomain);
 	
 //Include the rest of the system's core. The order of the files in the "$include" array are important! Do not rearrange the order!
-	$include = array("logger.class.php", "messages.class.php", "database.class.php");
+	$include = array("core/logger.php", "core/message.php", "core/database.php");
 	
 	foreach($include as $script) {
 		require_once($config->installRoot . "system/server/" . $script);

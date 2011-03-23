@@ -3,7 +3,7 @@
 LICENSE: http://docs.forwardfour.com/index.php/License
 
 Package: System Core
-Dependencies: config.php, index.php, messages.class.php
+Dependencies: config.php, index.php, message.php, logger.php
 Known issues: None
 
 Create a connection to the local database, and provide all of the necessary methods to safely create, read, update, and delete data from the database.
