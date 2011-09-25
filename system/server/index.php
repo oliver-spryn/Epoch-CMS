@@ -1,16 +1,47 @@
 <?php
+/**
+ * Epoch Cloud Management Platform
+ * 
+ * LICENSE
+ * 
+ * By viewing, using, or actively developing this application in any way, you are
+ * henceforth bound the license agreement, and all of its changes, set forth by
+ * ForwardFour Innovations. The license can be found, in its entirety, at this 
+ * address: http://forwardfour.com/license.
+ * 
+ * @category   Core
+ * @copyright  Copyright (c) 2011 and Onwards, ForwardFour Innovations
+ * @license    http://forwardfour.com/license    [Proprietary/Closed Source]  
+ */
+
 /*
-LICENSE: http://docs.forwardfour.com/index.php/License
+ * This script is the super core of the system, which prepares the values from the
+ * configuration script for use within the system. Here is an overview of this
+ * relatively simple script:
+ *  [1] The server checks to see if at least PHP 5 is running, then defines several
+ *      constants which will make the major and minor versions avaliable to the
+ *      system.
+ *  [2] Check to see if the configuration script exists, and display a message if
+ *  	it does not.
+ *  [3] Instantiate the "Config" class for use through out this script and system.
+ *  [4] Windows directory paths use a backslash. However, all other operating systems
+ *      use a forward slash. This step uses the configuration file to set whether or
+ *      slashes should be forward or back. 
+ *  [5] Define several constants which will define local and CDN-based URLs for system-
+ *  	wide use.
+ *  [6] Include the essential classes within the system's core.
+ *  [7] Start a session.
+ *  [8] Set several several configurations which will boost performance, improve
+ *  	security, and allow certain actions.
+ *  [9] Create a function which be used to import additional classes and packages into
+ *  	a script for parsing, using ECMAScript standards.
+ */
 
-Package: System Core
-Dependencies: config.php
-Known issues: None
-
-This script is the super core of the system, which prepares the values from the configuration script for use within the system, as well as define a few constants, and import all of the system core files.
-*/
-
-//This system requires a minimum of PHP 5, so ensure that this condition is true before doing anything!
-	strnatcmp(phpversion(), '5.0.0') >= 0 ? NULL : die("Please install PHP 5 in order to use this application.");
+//This system requires a minimum of PHP 5, so ensure that this condition is true before doing else anything!
+	$PHPVersionInfo = phpversion();
+	!defined("PHP_MAJOR_VERSION") ? define("PHP_MAJOR_VERSION", current(explode(".", $PHPVersionInfo))) : NULL;
+	!defined("PHP_MINOR_VERSION") ? define("PHP_MINOR_VERSION", $PHPVersionInfo) : NULL;
+	PHP_MAJOR_VERSION < 5 ? die("Please install PHP 5 or greater in order to use this application.") : NULL;
 
 /*
  * This is the only script which does not use the "$installRoot" instance variable from the "Config" class to include necessary files from unknown directories.
