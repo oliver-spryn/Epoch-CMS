@@ -9,7 +9,6 @@
  * ForwardFour Innovations. The license can be found, in its entirety, at this 
  * address: http://forwardfour.com/license.
  * 
- * @category   Core
  * @copyright  Copyright (c) 2011 and Onwards, ForwardFour Innovations
  * @license    http://forwardfour.com/license    [Proprietary/Closed Source]  
  */
@@ -75,6 +74,9 @@
 	define("ROOT", PROTOCOL . $config->installDomain);
 	define("STRIPPED_ROOT", $config->installDomain);
 	
+	PROTOCOL == "https://" ? define("CDN_PROTOCOL", "https://") : define("CDN_PROTOCOL", "http://");
+	define("CDN_ROOT", CDN_PROTOCOL . $config->CDNRoot);
+	
 //Include the rest of the system's core. The order of the files in the "$include" array are important! Do not rearrange the order!
 	$include = array("core/logger.php", "core/message.php");
 	
@@ -89,10 +91,17 @@
 	
 //Set server configurations
 	set_time_limit(3600);
-	ini_set("expose_php", "Off");
 	error_reporting(0);
 	
-//Allow additional classes to be imported via ECMAScript standards (e.g. import(package.class))
+/**
+ * Import additional classes and packages into a script for parsing, by using
+ * ECMAScript standards (e.g. import(package.class))
+ * 
+ * @param      string      $classes     The ECMAScript-style path to a given class or package to import
+ * @param      string      $module      The module containing the package or class
+ * @return     boolean     An indicator as whether or not importing was a success
+ * @since      v0.1 Dev
+ */
 	function import($path, $module = "system") {
 		global $config, $message;
 		
@@ -111,6 +120,7 @@
 			if (!is_dir($modifiedPath)) {
 				$message->error("<strong>Fatal error:</strong> The system could not import the following classes, because either the package name is incorrect or it does not exist:\n<br /><br />\n" . $path . "\n<br /><br />\nRemember that, by default, import() will only import classes and packages from the system core. To include a package from another module, set the \$module option equal to the name of the module where the given package resides.");
 				
+				return false;
 				exit;
 			}
 			
@@ -121,6 +131,7 @@
 			//Exclude ".", "..", and any dot files or dot directories
 				if (strpos($packageContents, ".") !== 0) {
 					require_once($modifiedPath . $packageContents);
+					return true;
 				}
 			}
 			
@@ -132,9 +143,11 @@
 		//Check to see if the package and class exist
 			if (file_exists($modifiedPath)) {
 				require_once($modifiedPath);
+				return true;
 			} else {
 				$message->error("<strong>Fatal error:</strong> The system could not import the following class, because either the package or class name is incorrect or it does not exist:\n<br /><br />\n" . $path . "\n<br /><br />\nRemember that, by default, import() will only import classes and packages from the system core. To include packages and classes from other modules, set the \$module option equal to the name of the module where the given files reside.");
 				
+				return false;
 				exit;
 			}
 		}
