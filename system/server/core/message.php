@@ -21,7 +21,7 @@ This class will build success and alert messages.
 	//Display a success message
 		public function success($message) {
 			if ($this->useStyleSheet == false) {
-				$return = "<style type=\"text/css\">
+				$return = "<style>
   .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 1.1em; }
   .ui-state-highlight { border: 1px solid #fcefa1; background: #fbf9ee url(" . ROOT . "system/images/ajax_libraries/base/ui-bg_glass_55_fbf9ee_1x400.png) 50% 50% repeat-x; color: #363636; }
   .ui-corner-all { -moz-border-radius: 4px; -webkit-border-radius: 4px; }
@@ -33,12 +33,12 @@ This class will build success and alert messages.
 			}
 			
 			$return .= "
-<div class=\"ui-widget\">
+<section class=\"ui-widget\">
 <div class=\"ui-state-highlight ui-corner-all\" style=\"margin-top: 20px; padding: 0pt 0.7em;\"> 
 <p><span class=\"ui-icon ui-icon-info\" style=\"float: left; margin-right: 0.3em;\"></span>
 " . $message . "</p>
 </div>
-</div>";
+</section>";
 			
 			echo $return;
 		}
@@ -46,7 +46,7 @@ This class will build success and alert messages.
 	//Display an error message
 		public function error($message) {
 			if ($this->useStyleSheet == false) {
-				$return = "<style type=\"text/css\">
+				$return = "<style>
   .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 1.1em; }
   .ui-state-error { border: 1px solid #cd0a0a; background: #fef1ec url(" . ROOT . "system/images/ajax_libraries/base/ui-bg_glass_95_fef1ec_1x400.png) 50% bottom repeat-x; color: #cd0a0a; }
   .ui-corner-all { -moz-border-radius: 4px; -webkit-border-radius: 4px; }
@@ -58,12 +58,12 @@ This class will build success and alert messages.
 			}
 			
 			$return .= "
-<div class=\"ui-widget\">
+<section class=\"ui-widget\">
 <div class=\"ui-state-error ui-corner-all\" style=\"margin-top: 20px; padding: 0pt 0.7em;\"> 
 <p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: 0.3em;\"></span>
 " . $message . "</p>
 </div>
-</div>";
+</section>";
 			
 			echo $return;
 		}
