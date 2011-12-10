@@ -1,13 +1,18 @@
 <?php
-/*
-LICENSE: http://docs.forwardfour.com/index.php/License
-
-Package: System Core
-Dependencies: None
-Known issues: None
-
-This script is created during the automated setup process, and contains the core configuration and definitions of the system, which will be used globally.
-*/
+/**
+ * Epoch Cloud Management Platform
+ * 
+ * LICENSE
+ * 
+ * By viewing, using, or actively developing this application in any way, you are
+ * henceforth bound the license agreement, and all of its changes, set forth by
+ * ForwardFour Innovations. The license can be found, in its entirety, at this 
+ * address: http://forwardfour.com/license.
+ * 
+ * @category   Core
+ * @copyright  Copyright (c) 2011 and Onwards, ForwardFour Innovations
+ * @license    http://forwardfour.com/license    [Proprietary/Closed Source]  
+ */
 
 //Define the configuration class
 	class Config {
@@ -24,7 +29,8 @@ This script is created during the automated setup process, and contains the core
 	 * "$installRoot" is the installation path relative the root of the server.
 	*/
 		public $installDomain = "localhost/epoch/";
-		public $installRoot = "/xampp/xampp/htdocs/epoch/";
+		public $installRoot = "/Web Development/wamp/www/epoch/";
+		public $CDNRoot = "ffstatic-cdn1.appspot.com/";
 		
 	//Security settings configuration
 		public $folderPermissions = "0777";
