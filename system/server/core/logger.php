@@ -14,7 +14,7 @@
  */
 
 /**
- * Create and maintain a log file of system errors.
+ * Create and maintain a log file of system errors
  *
  * @category Core
  * @package core
@@ -23,7 +23,14 @@
  
 class Logger {
 /**
- * Get information about all of the plugins installed on this system
+ * Write a message to the error log
+ * 
+ * Precondition:  the folder in which the log file will be placed must be
+ *                writable and accessable
+ * Postcondition: the log file with the new contents will be created if
+ *                it does not exist, or the file will be modified with the
+ *                new log message placed at the bottom of previous log
+ *                messages 
  *
  * @param      string      $message     The message to be included in the log entry
  * @param      string      $file        The path to the file which recorded the log

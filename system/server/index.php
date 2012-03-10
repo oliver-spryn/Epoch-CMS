@@ -78,7 +78,7 @@
 	define("CDN_ROOT", CDN_PROTOCOL . $config->CDNRoot);
 	
 //Include the rest of the system's core. The order of the files in the "$include" array are important! Do not rearrange the order!
-	$include = array("core/logger.php", "core/message.php");
+	$include = array("core/message.php");
 	
 	foreach($include as $script) {
 		require_once($config->installRoot . "system/server/" . $script);
@@ -97,6 +97,10 @@
  * Import additional classes and packages into a script for parsing, by using
  * ECMAScript standards (e.g. import(package.class))
  * 
+ * Precondition:  the given class must exist as a single PHP file, or the given
+ *                package must exist as a folder
+ * Postcondition: the given class or package will be imported into the script
+ * 
  * @param      string      $classes     The ECMAScript-style path to a given class or package to import
  * @param      string      $module      The module containing the package or class
  * @return     boolean     An indicator as whether or not importing was a success
@@ -109,6 +113,7 @@
 		
 	//Import an entire package
 		if ($importAll[count($importAll) - 1] == "*") {
+		//Build the URL to the package
 			$modifiedPath = $config->installRoot . $module . "/server/";
 			
 		//- 2 from the iterator, so that the "*" isn't included
